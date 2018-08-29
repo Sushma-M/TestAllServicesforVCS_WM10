@@ -76,7 +76,7 @@
                 ${AdventureWorks2014.dialect}
                 </prop>
                     <prop key="hibernate.default_schema">
-                    ${AdventureWorks2014.schemaName}
+                    `${AdventureWorks2014.schemaName}`
                     </prop>
                 <prop key="hibernate.show_sql">
                     false

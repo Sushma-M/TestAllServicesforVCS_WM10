@@ -62,7 +62,7 @@
 
   @form-label-color: inherit;
   @wm-calendar-header-color: #adadad;
-  @wm-calendar-text-color: #ccc;
+  @wm-calendar-text-color: #adadad;
   @wm-datepicker-text-color: #000;
   @wm-datepicker-header-bg: #128ff2;
   @wm-datepicker-btn-hover-bg: #f0f0f0;
@@ -157,11 +157,11 @@
     }
   }
   //navigation
-  .nav-tabs, .nav-justified {
+  .nav-tabs {
     border-bottom-color: @nav-tabs-border-color;
     background-color: @nav-tabs-bg;
     > li {
-      > a, .app-menu a {
+      > a {
         color: @nav-tabs-color;
         text-transform: uppercase;
         background-color: @nav-tabs-active-link-hover-bg;
@@ -196,7 +196,7 @@
         }
       }
       &.active {
-        > a, .app-menu a {
+        > a {
           border-color: transparent;
           color: @nav-tabs-color-hover;
           &:after {
@@ -212,6 +212,12 @@
             color: @nav-tabs-color-hover;
           }
         }
+      }
+      //Default styles for menu in nav
+      &.app-nav-item > .dropdown > a.dropdown-toggle {
+        padding: @nav-link-padding;
+        color: @nav-tabs-color;
+        text-transform: uppercase;
       }
     }
   }
@@ -487,6 +493,60 @@
     }
   }
 
+  //Navbar
+  .navbar-default .navbar-nav {
+    > li {
+       .app-popover-wrapper a {
+          padding: 1.2em;
+          color: @navbar-default-brand-color;
+          &:hover, &:focus, &:active {
+             color: @navbar-default-link-active-color;
+             background-color: @navbar-default-hover-bg;
+          }
+       }
+       &.active {
+           .app-popover-wrapper a {
+               background-color: @navbar-default-link-active-bg;
+               &:hover, &:focus, &:active {
+                 color: @navbar-default-link-active-color;
+                 background-color: @navbar-default-link-active-bg;
+               }
+           }
+       }
+    }
+  }
+  .navbar-inverse .navbar-nav {
+    > li.active .app-popover-wrapper {
+       a, a:hover, a:focus, a:active {
+          color: @navbar-inverse-link-hover-color;
+          background-color: @navbar-inverse-link-active-bg;
+       }
+    }
+  }
+  //Nav pills
+  .nav, .nav-pills {
+    > li {
+       .app-popover-wrapper {
+          a {
+            padding: @nav-link-padding;
+          }
+          a:hover, a:focus {
+             color: @brand-primary;
+             background-color: @nav-link-hover-bg;
+          }
+       }
+       &.active {
+         .app-popover-wrapper {
+             a, a:hover, a:focus {
+                color: @navbar-inverse-link-hover-color;
+                background-color: @brand-primary;
+             }
+         }
+
+       }
+    }
+  }
+
   //Left & Right Panels
   .app-left-panel, .app-right-panel {
      box-shadow: 2px 2px 4px rgba(0,0,0,.15);
@@ -534,8 +594,7 @@
             font-size: 1.143em;
           }
           .badge {
-            right: @padding-large-horizontal;
-            top: @padding-large-horizontal;
+            top: 1.2em !important;
             padding: 4px 6px;
           }
         }
@@ -572,6 +631,44 @@
             padding: 1.333em;
           }
         }
+      }
+    }
+  }
+
+  /****nav widget****/
+  .app-nav {
+    &.nav-pills, &.nav-justified {
+      .app-nav-item {
+        .app-menu {
+          .dropdown-toggle {
+            padding: @padding-base-horizontal;
+          }
+          &:hover {
+            color: @nav-pills-active-link-hover-bg;
+            background-color: @nav-link-hover-bg;
+          }
+        }
+        &.active {
+          a, .app-menu {
+            &:active, &.hover, &:active:hover {
+              color: @navbar-default-link-active-color;
+              background-color: @nav-pills-active-link-hover-bg;
+            }
+            &.open {
+              .dropdown-toggle {
+                color: @nav-pills-active-link-hover-color;
+                background-color: @nav-pills-active-link-hover-bg;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .nav-justified {
+    .app-nav-item {
+      .app-menu {
+        text-align: center;
       }
     }
   }
@@ -617,7 +714,7 @@
     .text-danger, .control-label.text-danger {
       color: @brand-danger;
     }
-    .ng-touched.ng-invalid {
+    .ng-touched.ng-invalid .form-control {
       border-color: transparent;
       background-image: none;
       border-bottom: 2px solid @brand-danger;
@@ -673,9 +770,6 @@
       opacity: 0;
       z-index: -1;
       margin: 3px 0 !important;
-      &:focus + span.caption:before {
-        outline: 1px solid @brand-primary;
-      }
     }
     label {
       padding-left: @padding-base-horizontal;
@@ -700,6 +794,11 @@
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
         background: transparent;
+      }
+    }
+    label input:focus {
+      + .caption:before {
+        border: 1px solid #1794ef !important;
       }
     }
   }
@@ -801,10 +900,12 @@
       color: @form-label-color;
     }
     //action buttons in the form
-    .form-action {
+    .panel-footer.form-action {
       background-color: inherit;
       padding: @padding-base-horizontal;
       border-top: 1px solid @panel-inner-border;
+    }
+    .form-action {
       .btn {
         margin: 0 0.333em;
         border-radius: @border-radius-base;
@@ -851,9 +952,11 @@
       margin-bottom: 1em;
       font-weight: bold;
     }
-    .form-action {
+    .panel-footer.form-action {
       padding: @padding-base-horizontal;
       border-top: 1px solid @panel-inner-border;
+    }
+    .form-action {
       .btn {
         margin: 0 0.333em;
         border-radius: @border-radius-base;
@@ -899,7 +1002,6 @@
         th {
           .header-data {
             text-transform: uppercase;
-            color: @kbd-bg;
           }
           .sort-buttons-container {
             .sort-button {
@@ -960,19 +1062,14 @@
 
     .app-datagrid {
       .app-datagrid-cell {
-        &.cell-editing {
+        &.cell-editing:not(.checkbox-widget) {
            padding: @padding-small-vertical @padding-small-horizontal;
-          .app-checkbox {
-            margin: 3px -4px;
-          }
         }
       }
     }
     .cell-editing {
       input {
-        border-bottom: 1px solid darken(@table-border-color, 10%);
         background-color: @table-bg;
-        background-image: none;
       }
     }
   }
@@ -1546,16 +1643,14 @@
     }
     .fc-body {
       .fc-row {
-        min-height: 3em;
-        .fc-content-skeleton {
-          padding: .5em 0 2.2em .5em;
-          color: @wm-calendar-text-color;
-          font-size: 1.52em;
-          td {
-            text-align: left;
-          }
-        }
+        min-height: 5em;
       }
+    }
+    .fc-day-number {
+      padding: .5em .3em;
+      color: @wm-calendar-text-color;
+      font-size: 1.52em;
+      text-align: left;
     }
   }
 /*********************************************************************************************************************************************/
@@ -1631,8 +1726,7 @@
       width: 13em;
     }
     .input-group-addon {
-      padding: 0.833em 1.333em;
-      background-color: @gray-lighter;
+      height: 98%;
     }
   }
 /***popover class: removing the radius*******/
